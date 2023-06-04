@@ -59,6 +59,7 @@ namespace Roabotn.Pages
 
         private void ExitButton_Click(object sender, RoutedEventArgs e)
         {
+            this.NavigationService.Navigate(new LoginPage());
 
         }
 
