@@ -1,0 +1,501 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище RabothProjectModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AdminLogin">
+          <Key>
+            <PropertyRef Name="IdAdmin" />
+          </Key>
+          <Property Name="IdAdmin" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="login" Type="varchar" MaxLength="16" />
+          <Property Name="password" Type="varchar" MaxLength="16" />
+          <Property Name="firstname" Type="nvarchar" MaxLength="30" />
+          <Property Name="lastname" Type="nvarchar" MaxLength="50" />
+          <Property Name="surname" Type="nvarchar" MaxLength="50" />
+          <Property Name="IdStatus" Type="int" Nullable="false" />
+          <Property Name="IdDepartment" Type="int" />
+        </EntityType>
+        <EntityType Name="Department">
+          <Key>
+            <PropertyRef Name="IdDepartment" />
+          </Key>
+          <Property Name="IdDepartment" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NameDepartment" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Status">
+          <Key>
+            <PropertyRef Name="IdStatus" />
+          </Key>
+          <Property Name="IdStatus" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NameStatus" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Tasks">
+          <Key>
+            <PropertyRef Name="IdTasks" />
+          </Key>
+          <Property Name="IdTasks" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TaskName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="StartTime" Type="datetime" />
+          <Property Name="EndTime" Type="datetime" />
+          <Property Name="IdTaskStatus" Type="int" />
+        </EntityType>
+        <EntityType Name="TaskStatus2">
+          <Key>
+            <PropertyRef Name="IdTaskStatus" />
+          </Key>
+          <Property Name="IdTaskStatus" Type="int" Nullable="false" />
+          <Property Name="StatusName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="TaskWorker">
+          <Key>
+            <PropertyRef Name="IdTaskWorker" />
+          </Key>
+          <Property Name="IdTaskWorker" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdTasks" Type="int" />
+          <Property Name="IdWorker" Type="int" />
+        </EntityType>
+        <EntityType Name="Worker">
+          <Key>
+            <PropertyRef Name="IdWorker" />
+          </Key>
+          <Property Name="IdWorker" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="firstname" Type="nvarchar" MaxLength="50" />
+          <Property Name="lastname" Type="nvarchar" MaxLength="50" />
+          <Property Name="surname" Type="nvarchar" MaxLength="50" />
+          <Property Name="number" Type="varchar" MaxLength="12" />
+          <Property Name="email" Type="nvarchar" MaxLength="50" />
+          <Property Name="INN" Type="nvarchar" MaxLength="50" />
+          <Property Name="Snils" Type="nvarchar" MaxLength="50" />
+          <Property Name="Adress" Type="nvarchar" MaxLength="50" />
+          <Property Name="PasportSeries" Type="nvarchar" MaxLength="4" />
+          <Property Name="PasportNumber" Type="nvarchar" MaxLength="6" />
+          <Property Name="IdDepartment" Type="int" Nullable="false" />
+          <Property Name="IdTasks" Type="int" />
+          <Property Name="Specialnost" Type="nvarchar" MaxLength="50" />
+          <Property Name="Image" Type="varchar" MaxLength="50" />
+          <Property Name="birthday" Type="datetime" />
+        </EntityType>
+        <Association Name="FK_AdminLogin_Department">
+          <End Role="Department" Type="Self.Department" Multiplicity="0..1" />
+          <End Role="AdminLogin" Type="Self.AdminLogin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="IdDepartment" />
+            </Principal>
+            <Dependent Role="AdminLogin">
+              <PropertyRef Name="IdDepartment" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AdminLogin_Status">
+          <End Role="Status" Type="Self.Status" Multiplicity="1" />
+          <End Role="AdminLogin" Type="Self.AdminLogin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="IdStatus" />
+            </Principal>
+            <Dependent Role="AdminLogin">
+              <PropertyRef Name="IdStatus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tasks_TaskStatus2">
+          <End Role="TaskStatus2" Type="Self.TaskStatus2" Multiplicity="0..1" />
+          <End Role="Tasks" Type="Self.Tasks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TaskStatus2">
+              <PropertyRef Name="IdTaskStatus" />
+            </Principal>
+            <Dependent Role="Tasks">
+              <PropertyRef Name="IdTaskStatus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TaskWorker_Tasks">
+          <End Role="Tasks" Type="Self.Tasks" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TaskWorker" Type="Self.TaskWorker" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tasks">
+              <PropertyRef Name="IdTasks" />
+            </Principal>
+            <Dependent Role="TaskWorker">
+              <PropertyRef Name="IdTasks" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TaskWorker_Worker">
+          <End Role="Worker" Type="Self.Worker" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TaskWorker" Type="Self.TaskWorker" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Worker">
+              <PropertyRef Name="IdWorker" />
+            </Principal>
+            <Dependent Role="TaskWorker">
+              <PropertyRef Name="IdWorker" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Worker_Department1">
+          <End Role="Department" Type="Self.Department" Multiplicity="1" />
+          <End Role="Worker" Type="Self.Worker" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="IdDepartment" />
+            </Principal>
+            <Dependent Role="Worker">
+              <PropertyRef Name="IdDepartment" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище RabothProjectModelContainer">
+          <EntitySet Name="AdminLogin" EntityType="Self.AdminLogin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Department" EntityType="Self.Department" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Status" EntityType="Self.Status" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tasks" EntityType="Self.Tasks" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TaskStatus2" EntityType="Self.TaskStatus2" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TaskWorker" EntityType="Self.TaskWorker" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Worker" EntityType="Self.Worker" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_AdminLogin_Department" Association="Self.FK_AdminLogin_Department">
+            <End Role="Department" EntitySet="Department" />
+            <End Role="AdminLogin" EntitySet="AdminLogin" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AdminLogin_Status" Association="Self.FK_AdminLogin_Status">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="AdminLogin" EntitySet="AdminLogin" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tasks_TaskStatus2" Association="Self.FK_Tasks_TaskStatus2">
+            <End Role="TaskStatus2" EntitySet="TaskStatus2" />
+            <End Role="Tasks" EntitySet="Tasks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TaskWorker_Tasks" Association="Self.FK_TaskWorker_Tasks">
+            <End Role="Tasks" EntitySet="Tasks" />
+            <End Role="TaskWorker" EntitySet="TaskWorker" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TaskWorker_Worker" Association="Self.FK_TaskWorker_Worker">
+            <End Role="Worker" EntitySet="Worker" />
+            <End Role="TaskWorker" EntitySet="TaskWorker" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Worker_Department1" Association="Self.FK_Worker_Department1">
+            <End Role="Department" EntitySet="Department" />
+            <End Role="Worker" EntitySet="Worker" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="RabothProjectModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="AdminLogin">
+          <Key>
+            <PropertyRef Name="IdAdmin" />
+          </Key>
+          <Property Name="IdAdmin" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="login" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
+          <Property Name="password" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
+          <Property Name="firstname" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="lastname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="surname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IdStatus" Type="Int32" Nullable="false" />
+          <Property Name="IdDepartment" Type="Int32" />
+          <NavigationProperty Name="Department" Relationship="Self.FK_AdminLogin_Department" FromRole="AdminLogin" ToRole="Department" />
+          <NavigationProperty Name="Status" Relationship="Self.FK_AdminLogin_Status" FromRole="AdminLogin" ToRole="Status" />
+        </EntityType>
+        <EntityType Name="Department">
+          <Key>
+            <PropertyRef Name="IdDepartment" />
+          </Key>
+          <Property Name="IdDepartment" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NameDepartment" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AdminLogin" Relationship="Self.FK_AdminLogin_Department" FromRole="Department" ToRole="AdminLogin" />
+          <NavigationProperty Name="Worker" Relationship="Self.FK_Worker_Department1" FromRole="Department" ToRole="Worker" />
+        </EntityType>
+        <EntityType Name="Status">
+          <Key>
+            <PropertyRef Name="IdStatus" />
+          </Key>
+          <Property Name="IdStatus" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NameStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AdminLogin" Relationship="Self.FK_AdminLogin_Status" FromRole="Status" ToRole="AdminLogin" />
+        </EntityType>
+        <EntityType Name="Tasks">
+          <Key>
+            <PropertyRef Name="IdTasks" />
+          </Key>
+          <Property Name="IdTasks" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TaskName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="StartTime" Type="DateTime" Precision="3" />
+          <Property Name="EndTime" Type="DateTime" Precision="3" />
+          <Property Name="IdTaskStatus" Type="Int32" />
+          <NavigationProperty Name="TaskStatus2" Relationship="Self.FK_Tasks_TaskStatus2" FromRole="Tasks" ToRole="TaskStatus2" />
+          <NavigationProperty Name="TaskWorker" Relationship="Self.FK_TaskWorker_Tasks" FromRole="Tasks" ToRole="TaskWorker" />
+        </EntityType>
+        <EntityType Name="TaskStatus2">
+          <Key>
+            <PropertyRef Name="IdTaskStatus" />
+          </Key>
+          <Property Name="IdTaskStatus" Type="Int32" Nullable="false" />
+          <Property Name="StatusName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Tasks" Relationship="Self.FK_Tasks_TaskStatus2" FromRole="TaskStatus2" ToRole="Tasks" />
+        </EntityType>
+        <EntityType Name="TaskWorker">
+          <Key>
+            <PropertyRef Name="IdTaskWorker" />
+          </Key>
+          <Property Name="IdTaskWorker" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdTasks" Type="Int32" />
+          <Property Name="IdWorker" Type="Int32" />
+          <NavigationProperty Name="Tasks" Relationship="Self.FK_TaskWorker_Tasks" FromRole="TaskWorker" ToRole="Tasks" />
+          <NavigationProperty Name="Worker" Relationship="Self.FK_TaskWorker_Worker" FromRole="TaskWorker" ToRole="Worker" />
+        </EntityType>
+        <EntityType Name="Worker">
+          <Key>
+            <PropertyRef Name="IdWorker" />
+          </Key>
+          <Property Name="IdWorker" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="firstname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="lastname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="surname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="number" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="INN" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Snils" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Adress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PasportSeries" Type="String" MaxLength="4" FixedLength="false" Unicode="true" />
+          <Property Name="PasportNumber" Type="String" MaxLength="6" FixedLength="false" Unicode="true" />
+          <Property Name="IdDepartment" Type="Int32" Nullable="false" />
+          <Property Name="IdTasks" Type="Int32" />
+          <Property Name="Specialnost" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Image" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="birthday" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Department" Relationship="Self.FK_Worker_Department1" FromRole="Worker" ToRole="Department" />
+          <NavigationProperty Name="TaskWorker" Relationship="Self.FK_TaskWorker_Worker" FromRole="Worker" ToRole="TaskWorker" />
+        </EntityType>
+        <Association Name="FK_AdminLogin_Department">
+          <End Role="Department" Type="Self.Department" Multiplicity="0..1" />
+          <End Role="AdminLogin" Type="Self.AdminLogin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="IdDepartment" />
+            </Principal>
+            <Dependent Role="AdminLogin">
+              <PropertyRef Name="IdDepartment" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AdminLogin_Status">
+          <End Role="Status" Type="Self.Status" Multiplicity="1" />
+          <End Role="AdminLogin" Type="Self.AdminLogin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="IdStatus" />
+            </Principal>
+            <Dependent Role="AdminLogin">
+              <PropertyRef Name="IdStatus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Worker_Department1">
+          <End Role="Department" Type="Self.Department" Multiplicity="1" />
+          <End Role="Worker" Type="Self.Worker" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="IdDepartment" />
+            </Principal>
+            <Dependent Role="Worker">
+              <PropertyRef Name="IdDepartment" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tasks_TaskStatus2">
+          <End Role="TaskStatus2" Type="Self.TaskStatus2" Multiplicity="0..1" />
+          <End Role="Tasks" Type="Self.Tasks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TaskStatus2">
+              <PropertyRef Name="IdTaskStatus" />
+            </Principal>
+            <Dependent Role="Tasks">
+              <PropertyRef Name="IdTaskStatus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TaskWorker_Tasks">
+          <End Role="Tasks" Type="Self.Tasks" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TaskWorker" Type="Self.TaskWorker" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tasks">
+              <PropertyRef Name="IdTasks" />
+            </Principal>
+            <Dependent Role="TaskWorker">
+              <PropertyRef Name="IdTasks" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TaskWorker_Worker">
+          <End Role="Worker" Type="Self.Worker" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TaskWorker" Type="Self.TaskWorker" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Worker">
+              <PropertyRef Name="IdWorker" />
+            </Principal>
+            <Dependent Role="TaskWorker">
+              <PropertyRef Name="IdWorker" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="RabotnProjectEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AdminLogin" EntityType="Self.AdminLogin" />
+          <EntitySet Name="Department" EntityType="Self.Department" />
+          <EntitySet Name="Status" EntityType="Self.Status" />
+          <EntitySet Name="Tasks" EntityType="Self.Tasks" />
+          <EntitySet Name="TaskStatus2" EntityType="Self.TaskStatus2" />
+          <EntitySet Name="TaskWorker" EntityType="Self.TaskWorker" />
+          <EntitySet Name="Worker" EntityType="Self.Worker" />
+          <AssociationSet Name="FK_AdminLogin_Department" Association="Self.FK_AdminLogin_Department">
+            <End Role="Department" EntitySet="Department" />
+            <End Role="AdminLogin" EntitySet="AdminLogin" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AdminLogin_Status" Association="Self.FK_AdminLogin_Status">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="AdminLogin" EntitySet="AdminLogin" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Worker_Department1" Association="Self.FK_Worker_Department1">
+            <End Role="Department" EntitySet="Department" />
+            <End Role="Worker" EntitySet="Worker" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tasks_TaskStatus2" Association="Self.FK_Tasks_TaskStatus2">
+            <End Role="TaskStatus2" EntitySet="TaskStatus2" />
+            <End Role="Tasks" EntitySet="Tasks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TaskWorker_Tasks" Association="Self.FK_TaskWorker_Tasks">
+            <End Role="Tasks" EntitySet="Tasks" />
+            <End Role="TaskWorker" EntitySet="TaskWorker" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TaskWorker_Worker" Association="Self.FK_TaskWorker_Worker">
+            <End Role="Worker" EntitySet="Worker" />
+            <End Role="TaskWorker" EntitySet="TaskWorker" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище RabothProjectModelContainer" CdmEntityContainer="RabotnProjectEntities">
+          <EntitySetMapping Name="AdminLogin">
+            <EntityTypeMapping TypeName="RabothProjectModel.AdminLogin">
+              <MappingFragment StoreEntitySet="AdminLogin">
+                <ScalarProperty Name="IdAdmin" ColumnName="IdAdmin" />
+                <ScalarProperty Name="login" ColumnName="login" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="firstname" ColumnName="firstname" />
+                <ScalarProperty Name="lastname" ColumnName="lastname" />
+                <ScalarProperty Name="surname" ColumnName="surname" />
+                <ScalarProperty Name="IdStatus" ColumnName="IdStatus" />
+                <ScalarProperty Name="IdDepartment" ColumnName="IdDepartment" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Department">
+            <EntityTypeMapping TypeName="RabothProjectModel.Department">
+              <MappingFragment StoreEntitySet="Department">
+                <ScalarProperty Name="IdDepartment" ColumnName="IdDepartment" />
+                <ScalarProperty Name="NameDepartment" ColumnName="NameDepartment" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Status">
+            <EntityTypeMapping TypeName="RabothProjectModel.Status">
+              <MappingFragment StoreEntitySet="Status">
+                <ScalarProperty Name="IdStatus" ColumnName="IdStatus" />
+                <ScalarProperty Name="NameStatus" ColumnName="NameStatus" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tasks">
+            <EntityTypeMapping TypeName="RabothProjectModel.Tasks">
+              <MappingFragment StoreEntitySet="Tasks">
+                <ScalarProperty Name="IdTasks" ColumnName="IdTasks" />
+                <ScalarProperty Name="TaskName" ColumnName="TaskName" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+                <ScalarProperty Name="IdTaskStatus" ColumnName="IdTaskStatus" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TaskStatus2">
+            <EntityTypeMapping TypeName="RabothProjectModel.TaskStatus2">
+              <MappingFragment StoreEntitySet="TaskStatus2">
+                <ScalarProperty Name="IdTaskStatus" ColumnName="IdTaskStatus" />
+                <ScalarProperty Name="StatusName" ColumnName="StatusName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TaskWorker">
+            <EntityTypeMapping TypeName="RabothProjectModel.TaskWorker">
+              <MappingFragment StoreEntitySet="TaskWorker">
+                <ScalarProperty Name="IdTaskWorker" ColumnName="IdTaskWorker" />
+                <ScalarProperty Name="IdTasks" ColumnName="IdTasks" />
+                <ScalarProperty Name="IdWorker" ColumnName="IdWorker" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Worker">
+            <EntityTypeMapping TypeName="RabothProjectModel.Worker">
+              <MappingFragment StoreEntitySet="Worker">
+                <ScalarProperty Name="IdWorker" ColumnName="IdWorker" />
+                <ScalarProperty Name="firstname" ColumnName="firstname" />
+                <ScalarProperty Name="lastname" ColumnName="lastname" />
+                <ScalarProperty Name="surname" ColumnName="surname" />
+                <ScalarProperty Name="number" ColumnName="number" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="INN" ColumnName="INN" />
+                <ScalarProperty Name="Snils" ColumnName="Snils" />
+                <ScalarProperty Name="Adress" ColumnName="Adress" />
+                <ScalarProperty Name="PasportSeries" ColumnName="PasportSeries" />
+                <ScalarProperty Name="PasportNumber" ColumnName="PasportNumber" />
+                <ScalarProperty Name="IdDepartment" ColumnName="IdDepartment" />
+                <ScalarProperty Name="IdTasks" ColumnName="IdTasks" />
+                <ScalarProperty Name="Specialnost" ColumnName="Specialnost" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="birthday" ColumnName="birthday" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

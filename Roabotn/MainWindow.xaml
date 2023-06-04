@@ -1,0 +1,19 @@
+﻿<Window x:Class="Roabotn.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Roabotn"
+        mc:Ignorable="d"
+        Title="Создание и тестирование АРМ по учету производственных задач,
+выполняемых сотрудниками предприятия" Height="500" Width="800"
+        Icon="/Assets/Images/images (2).jpg">
+
+    <Window.Resources>
+        <ResourceDictionary Source="assets\dictionaries\maindictinarie.xaml"/>
+    </Window.Resources>
+    <Grid>
+        <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden"/>
+         
+    </Grid>
+</Window>

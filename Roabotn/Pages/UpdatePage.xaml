@@ -1,0 +1,56 @@
+﻿<Page x:Class="Roabotn.Pages.UpdatePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Roabotn.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="UpdatePage">
+    <Page.Resources>
+        <ResourceDictionary Source="..\assets\dictionaries\admindictinarie.xaml"/>
+    </Page.Resources>
+    <Grid ScrollViewer.VerticalScrollBarVisibility="Disabled">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="2*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Background="#D9D9D9">
+            <TextBlock Style="{StaticResource header}" Margin="0,5,10,0">Редактирование</TextBlock>
+            <Button x:Name="back" Style="{StaticResource Main}" Click="back_Click" Margin="600,0,0,0">Назад</Button>
+        </StackPanel >
+        <StackPanel Grid.Row="1" Background="#ffffff">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <UniformGrid Columns="2" Margin="20">
+                    <TextBlock Margin="0,0,10,0" HorizontalAlignment="Right">Имя</TextBlock>
+                    <TextBox Style="{StaticResource Redact}" Width="200" x:Name="firstname" Text="{Binding firstname}"></TextBox>
+                </UniformGrid>
+                <StackPanel Orientation="Horizontal" Margin="20" >
+                    <TextBlock Margin="0,0,10,0">Фамилия</TextBlock>
+                    <TextBox Style="{StaticResource Redact}" Width="200" x:Name="lastname" Text="{Binding lastname}"></TextBox>
+                </StackPanel>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <StackPanel Orientation="Horizontal" Margin="20">
+                    <TextBlock Margin="0,0,10,0">Отчество</TextBlock>
+                    <TextBox Style="{StaticResource Redact}" Width="200" x:Name="surname" Text="{Binding surname}"></TextBox>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="20">
+                    <TextBlock Margin="0,0,10,0">Телефон</TextBlock>
+                    <TextBox Style="{StaticResource Redact}" Width="200" x:Name="number" Text="{Binding number}"></TextBox>
+                </StackPanel>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <StackPanel Orientation="Horizontal" Margin="20">
+                    <TextBlock Margin="0,5,10,0">Email</TextBlock>
+                    <TextBox Style="{StaticResource Redact}" Width="200" x:Name="email" Text="{Binding email}"></TextBox>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="20">
+                    <TextBlock Margin="0,5,10,0">Дата рождения</TextBlock>
+                    <DatePicker x:Name="birthday" Text="{Binding birthday,StringFormat={}{0:dd.MM.yyyy}}"></DatePicker>
+                </StackPanel>
+            </StackPanel>
+            <Button HorizontalAlignment="Center" x:Name="SaveChanges" Width="200" Height="50" FontSize="30" Margin="0,150,0,0" Click="SaveChanges_Click">Сохранить</Button>
+        </StackPanel>
+    </Grid>
+</Page>
