@@ -6,32 +6,36 @@
       xmlns:local="clr-namespace:Roabotn.Pages"
       mc:Ignorable="d" 
       d:DesignHeight="523.066" d:DesignWidth="800"
+      MaxHeight="524"
+      MaxWidth="800"
       Title="AddWorkerPage">
     <Page.Resources>
         <ResourceDictionary Source="..\assets\dictionaries\admindictinarie.xaml"/>
     </Page.Resources>
-
-    <Grid ScrollViewer.VerticalScrollBarVisibility="Visible">
+    
+        <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="25"/>
             <RowDefinition Height="2*"/>
         </Grid.RowDefinitions>
-        <StackPanel Grid.Row="0" Orientation="Horizontal" Background="#D9D9D9">
+        
+            <StackPanel Grid.Row="0" Orientation="Horizontal" Background="#D9D9D9">
             <TextBlock Style="{StaticResource header}" Margin="0,5,10,0">Добавление работника</TextBlock>
             <Button x:Name="back" Style="{StaticResource Main}" Click="back_Click" Margin="600,0,0,0">Назад</Button>
         </StackPanel >
-        <StackPanel Grid.Row="1" Background="#ffffff">
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-            <StackPanel Orientation="Horizontal" Margin="20" >
-                <TextBlock Margin="0,0,10,0">Имя</TextBlock>
-                <TextBox Style="{StaticResource Redact}" Width="200" x:Name="firstname"></TextBox>
-            </StackPanel>
+        <StackPanel Grid.Row="1" Background="#ffffff" >
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Height="57">
+                <StackPanel Orientation="Horizontal" Margin="20" >
+                    <TextBlock Margin="0,0,10,0">Имя</TextBlock>
+                    <TextBox Style="{StaticResource Redact}" Width="200" x:Name="firstname"></TextBox>
+                </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="20" >
                     <TextBlock Margin="0,0,10,0">Фамилия</TextBlock>
                     <TextBox Style="{StaticResource Redact}" Width="200" x:Name="lastname"></TextBox>
                 </StackPanel>
             </StackPanel>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Height="56">
                 <StackPanel Orientation="Horizontal" Margin="20">
                     <TextBlock Margin="0,0,10,0">Отчество</TextBlock>
                     <TextBox Style="{StaticResource Redact}" Width="200" x:Name="surname"></TextBox>
@@ -41,17 +45,17 @@
                     <TextBox Style="{StaticResource Redact}" Width="200" x:Name="number"></TextBox>
                 </StackPanel>
             </StackPanel>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Height="61">
                 <StackPanel Orientation="Horizontal" Margin="20">
-                    <TextBlock Margin="0,0,10,0">Email</TextBlock>
-                    <TextBox Style="{StaticResource Redact}" Width="200" x:Name="email"></TextBox>
+                    <TextBlock Margin="0,0,10,0" Height="14">Email</TextBlock>
+                    <TextBox Style="{StaticResource Redact}" Width="200" x:Name="email" Height="15"></TextBox>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="20">
                     <TextBlock Margin="0,0,10,0">Дата рождения</TextBlock>
                     <DatePicker x:Name="birthday"></DatePicker>
                 </StackPanel>
             </StackPanel>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Height="53">
                 <StackPanel Orientation="Horizontal" Margin="20">
                     <TextBlock Margin="0,0,10,0">ИНН</TextBlock>
                     <TextBox Style="{StaticResource Redact}" Width="150" x:Name="inn"></TextBox>
@@ -65,7 +69,7 @@
                     <TextBox Style="{StaticResource Redact}" Width="200" x:Name="spec"></TextBox>
                 </StackPanel>
             </StackPanel>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Height="54">
                 <StackPanel Orientation="Horizontal" Margin="20">
                     <TextBlock Margin="0,0,10,0">Адрес</TextBlock>
                     <TextBox Style="{StaticResource Redact}" Width="200" x:Name="adress"></TextBox>
@@ -79,19 +83,19 @@
                     <TextBox Style="{StaticResource Redact}" Width="100" x:Name="pasportnumber" ></TextBox>
                 </StackPanel>
             </StackPanel>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,0">
                 <StackPanel Orientation="Horizontal" Margin="20">
-                    <Image Source="/Assets/Images/no_foto.png" Margin="0,0,10,0" MaxWidth="100" x:Name="LoadFileImage"></Image>
+                    <Image Source="/Assets/Images/no_foto.png" Margin="0,0,10,0" MaxWidth="70" x:Name="LoadFileImage"></Image>
                     <Button Name="LoadFileButton" Click="LoadFileButton_Click_1" Height="20">Выбрать изображение</Button>
                 </StackPanel>
-                <StackPanel Orientation="Horizontal" Margin="20">
-                    <TextBlock Margin="0,38,10,0">Отдел</TextBlock>
-                    <ComboBox SelectedIndex="1" Width="200" Height="20" x:Name="Depart">
-                        
-                    </ComboBox>
+                <StackPanel Orientation="Horizontal" Margin="20" Height="64">
+                    <TextBlock Height="16" Width="40"><Run Text="Отдел"/></TextBlock>
+                    <ComboBox SelectedIndex="1" Width="200" Height="20" x:Name="Depart"/>
                 </StackPanel>
             </StackPanel>
-            <Button HorizontalAlignment="Center" Width="200" Height="50" FontSize="30" x:Name="SaveChanges" Click="SaveChanges_Click">Сохранить</Button>
+            <Button Width="200" Height="50" FontSize="30" x:Name="SaveChanges" Click="SaveChanges_Click" Content="Сохранить"/>
         </StackPanel>
+       
     </Grid>
+    
 </Page>
